@@ -14,6 +14,26 @@ var inclinacao2 = 0;
 var xi1, yi1, xf1, yf1;
 var xi2, yi2, xf2, yf2;
 
+var lancou = false;
+var angulomira = 0;
+
+var alvo1 = true;
+var alvo2 = true;
+
+canvas.addEventListener('mousemove', function(e){
+    if (!lancou){
+        angulomira = Math.atan2(e.clientY - bolay, e.clientX - bolax);
+    }
+});
+
+canvas.addEventListener('click', function(){
+    if (!lancou){
+        velocidadex = Math.cos(angulomira) * 10;
+        velocidadey = Math.sin(angulomira) * 10;
+        lancou = true;
+    }
+});
+
 
 function animate(){
     requestAnimationFrame(animate);
@@ -46,15 +66,15 @@ function animate(){
     c.fillStyle = "#ffffff";
     c.fill();
 
+    if(lancou){
     velocidadey += 0.5;
     bolay += velocidadey;
     bolax += velocidadex;
+    }
 
     if (bolay + 10 > canvas.height){
         bolay = canvas.height - 10;
         velocidadey *= -0.5;
-         barra1 = false;
-         barra2 = false;
          if (velocidadex <= 0){
             velocidadex = 0;
          }
@@ -68,11 +88,57 @@ function animate(){
         velocidadex *= -0;
 
     }
-
     if (bolax - 10 < 0){
         bolax = 10;
-        velocidadex *= 0;
+        velocidadex *= -1;
     }
+
+    if (!lancou){
+    c.beginPath();
+    c.moveTo(bolax, bolay);
+    c.lineTo(bolax + Math.cos(angulomira) * 100, bolay + Math.sin(angulomira) * 100);
+    c.strokeStyle = "#ff0000";
+    c.lineWidth = 2;
+    c.stroke();
+}
+ 
+
+if (alvo1){
+    c.beginPath();
+    c.arc(canvas.width * 0.2, canvas.height * 0.5, 30, 0, Math.PI * 2, false);
+    c.fillStyle = "#ffee00";
+    c.fill();
+    c.fillStyle = "#000000";
+    c.font = "bold 16px Arial";
+    c.textAlign = "center";
+    c.textBaseline = "middle";
+    c.fillText("50", canvas.width * 0.2, canvas.height * 0.5);
+
+    var distancia1 = Math.sqrt((bolax - canvas.width * 0.2) ** 2 + (bolay - canvas.height * 0.5) ** 2);
+    if (distancia1 < 10 + 30){
+        alvo1 = false;
+    }
+}
+
+if (alvo2){
+    c.beginPath();
+    c.arc(canvas.width * 0.9, canvas.height * 0.8, 30, 0, Math.PI * 2, false);
+    c.fillStyle = "#ff00f2";
+    c.fill();
+    c.fillStyle = "#000000";
+    c.font = "bold 16px Arial";
+    c.textAlign = "center";
+    c.textBaseline = "middle";
+    c.fillText("75", canvas.width * 0.9, canvas.height * 0.8);
+
+    var distancia2 = Math.sqrt((bolax - canvas.width * 0.9) ** 2 + (bolay - canvas.height * 0.8) ** 2);
+    if (distancia2 < 10 + 30){
+        alvo2 = false;
+    }
+}
+
+
+
 }
 animate();
 
