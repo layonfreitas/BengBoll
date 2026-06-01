@@ -82,7 +82,7 @@ canvas.addEventListener('mousemove', function(e){
 canvas.addEventListener('click', function(){
     if (!lancou && tentativas > 0 && !jogoAcabou){ // Só lança se não lançou ainda, tem tentativas e o jogo não acabou
 
-        var forca = 15; // Força padrão do lançamento
+        var forca = 8; // Força padrão do lançamento
 
         if (bolay + 10 >= canvas.height){ // Se a bola estiver no chão, aumenta a força
             forca = 25;
@@ -421,7 +421,7 @@ function animate(){
     }
 
     //VERIFICAÇÃO: A BOLA PAROU NO CHÃO
-    if (bolay + 10 >= canvas.height && Math.abs(velocidadey) < 1 && Math.abs(velocidadex) < 1)// verifica se a bola esta no chao ou quase no chão
+    if (bolay + 10 >= canvas.height && Math.abs(velocidadey) < 1 && Math.abs(velocidadex) < 1)// verifica se a bola esta no chao 
        {
         velocidadex = 0; // Para completamente
         velocidadey = 0;
