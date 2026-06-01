@@ -63,7 +63,7 @@ var bolaxAnt = bolax;
 var bolayAnt = bolay; 
 
 
-//MOVIMENTO DO MOUSE
+// MOVIMENTO DO MOUSE
 canvas.addEventListener('mousemove', function(e){
     if (!lancou && !jogoAcabou){ // Atualiza a mira se a bola não foi lançada e o jogo não acabou
 
@@ -420,7 +420,7 @@ function animate(){
         c.fillText("Pontos: " + pontos + " | Tentativas: " + tentativas, 20, 25);
     }
 
-    // ── VERIFICAÇÃO: A BOLA PAROU NO CHÃO? ──
+    //VERIFICAÇÃO: A BOLA PAROU NO CHÃO
     if (bolay + 10 >= canvas.height && Math.abs(velocidadey) < 1 && Math.abs(velocidadex) < 1)// verifica se a bola esta no chao ou quase no chão
        {
         velocidadex = 0; // Para completamente
